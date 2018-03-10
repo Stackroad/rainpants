@@ -43,7 +43,7 @@ class QuotesSpider(scrapy.Spider):
         collection = db['test-collection']
 
         post = {"day": datetime.datetime.utcnow(),
-            "rain": '6,1 mm'}
+            "rain": msg}
         posts = db.posts
         post_id = posts.insert_one(post).inserted_id
         print(post_id)

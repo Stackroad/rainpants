@@ -27,7 +27,7 @@ TIME_START_END = {
     'wed': [datetime.time(7, 00), datetime.time(8, 0)],
     'thu': [datetime.time(7, 00), datetime.time(8, 0)],
     'fri': [datetime.time(7, 00), datetime.time(8, 0)],
-    'sat': [datetime.time(8, 00), datetime.time(17, 0)],
+    'sat': [datetime.time(8, 00), datetime.time(9, 0)],
     'sun': [datetime.time(8, 00), datetime.time(9, 0)],
 }
 
