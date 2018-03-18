@@ -28,13 +28,14 @@ TIME_START_END = {
     'thu': [datetime.time(7, 00), datetime.time(8, 0)],
     'fri': [datetime.time(7, 00), datetime.time(8, 0)],
     'sat': [datetime.time(8, 00), datetime.time(9, 0)],
-    'sun': [datetime.time(8, 00), datetime.time(9, 0)],
+    'sun': [datetime.time(8, 00), datetime.time(16, 0)],
 }
 
 
 def timer(firstTimeBool, day_polled):
     sleep_hour = 3600
     sleep_10_min = 600
+    sleep_1_min = 60
     sleep_10_sec = 3
 
     print('hihi')
@@ -54,12 +55,15 @@ def timer(firstTimeBool, day_polled):
                 print('Lets notify')
                 msg = setUpDatabaseConnectionRetrive(firstTimeBool)
                 sendNotify(msg)
-                day_polled = today
+                #day_polled = today
+
+                #Temp
+                sleep_time = sleep_1_min
+                time.sleep(sleep_time)
         else:
             print('It is not time!')
             sleep_time = sleep_10_min
             time.sleep(sleep_time)
-
 
 def setUpDatabaseConnectionRetrive(firstTimeBool):
     if firstTimeBool == True:
@@ -93,6 +97,7 @@ def sendNotify(msg):
 
 
 if __name__ == '__main__':
+    print('Running')
     day_polled = ''
     firstTimeBool = True
     timer(firstTimeBool, day_polled)

@@ -26,9 +26,7 @@ def crawl():
     A "recursive" function that schedules a crawl 30 seconds after
     each successful crawl.
     """
-    # crawl_job() returns a Deferred
     d = crawl_job()
-    # call schedule_next_crawl(<scrapy response>, n) after crawl job is complete
     sleep_6_hour = 3600*6
     d.addCallback(schedule_next_crawl, sleep_6_hour)
     d.addErrback(catch_error)
