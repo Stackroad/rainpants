@@ -26,10 +26,10 @@ TIME_START_END = {
     'thu': [datetime.time(7, 00), datetime.time(8, 0)],
     'fri': [datetime.time(7, 00), datetime.time(8, 0)],
     'sat': [datetime.time(8, 00), datetime.time(9, 0)],
-    'sun': [datetime.time(8, 00), datetime.time(16, 0)],
+    'sun': [datetime.time(8, 00), datetime.time(9, 0)],
 }
 
-def timer(firstTimeBool, day_polled):
+def timer(firstTimeBool, day_polled, token, user):
     sleep_hour = 3600
     sleep_10_min = 600
     sleep_1_min = 60
@@ -50,21 +50,16 @@ def timer(firstTimeBool, day_polled):
                 print('Time to notify')
                 msg = setUpDatabaseConnectionRetrive(firstTimeBool)
                 if msg == 0:
-                    sendNotify('☀️?')
+                    sendNotify('It might be ☀️ today!', token, user)
                 elif msg >= 1:
-                    sendNotify(str(msg) + ' 👖👖')
+                    sendNotify(str(msg) + ' 👖👖', token, user)
                 elif msg >= 2:
-                    sendNotify(str(msg) + ' 👖👖👖')
+                    sendNotify(str(msg) + ' 👖👖👖', token, user)
                 elif msg >= 3:
-                    sendNotify(str(msg) + ' 👖👖👖👖')
+                    sendNotify(str(msg) + ' 👖👖👖👖', token, user)
                 else:
-                    sendNotify(str(msg) + ' 👖')
-
-                #day_polled = today
-
-                #Temp
-                sleep_time = sleep_1_min
-                time.sleep(sleep_time)
+                    sendNotify(str(msg) + ' 👖', token, user)
+                day_polled = today
         else:
             print('It is not time!')
             sleep_time = sleep_10_min
@@ -88,7 +83,7 @@ def setUpDatabaseConnectionRetrive(firstTimeBool):
     msg = post.get("rain")
     return msg
 
-def sendNotify(msg):
+def sendNotify(msg, token, user):
     print('Try to push to Pushover!')
     conn = http.client.HTTPSConnection("api.pushover.net:443")
     conn.request("POST", "/1/messages.json",
@@ -101,6 +96,12 @@ def sendNotify(msg):
 
 if __name__ == '__main__':
     print('Starting to run')
+    infile = open('userToken.txt', 'r')
+    for l in infile:
+        splitLine = l.split()
+        user = splitLine[0]
+        token = splitLine[1]
+    infile.close()
     day_polled = ''
     firstTimeBool = True
-    timer(firstTimeBool, day_polled)
+    timer(firstTimeBool, day_polled, token, user)

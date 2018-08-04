@@ -2,6 +2,7 @@ from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 from spiders.weather_spider import WeatherSpider
+import sys
 
 def crawl_job():
     """
@@ -23,7 +24,7 @@ def schedule_next_crawl(null, sleep_time):
 def crawl():
     print('crawl')
     """
-    A "recursive" function that schedules a crawl 30 seconds after
+    A "recursive" function that schedules a crawl after
     each successful crawl.
     """
     d = crawl_job()
@@ -33,7 +34,6 @@ def crawl():
 
 def catch_error(failure):
     print(failure.value)
-
 
 if __name__=="__main__":
     crawl()
